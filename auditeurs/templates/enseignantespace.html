@@ -1,0 +1,265 @@
+{% extends 'Pages/baseespace.html' %}
+
+{% block content %}
+{% load static %}
+ <!-- start page title -->
+ <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">IBACySCHOOL</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'enseignantespace' %}">Espace</a></li>
+                    <li class="breadcrumb-item active">Enseignant</li>
+                </ol>
+            </div>
+
+        </div> 
+    </div>
+</div>
+<!-- end page title -->
+<div class="row">
+    <div class="col-xl-4">
+        <div class="card overflow-hidden">
+            <div class="bg-primary bg-soft">
+                <div class="row">
+                    <div class="col-7">
+                        <div class="text-primary p-3">
+                            <h5 class="text-primary">Content de te revoir !</h5>
+                            
+                        </div>
+                    </div>
+                    <div class="col-5 align-self-end">
+                        <img src="{% static 'assets/images/profile-img.png' %}" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body pt-0">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="avatar-md profile-user-wid mb-4">
+                            {% if user.profile_photo %}
+                            <img src="{{ user.profile_photo.url }} " alt="" class="img-thumbnail rounded-circle">
+                                 {% else %}
+                            <img class="rounded-circle avatar-xs" src="{% static 'assets/images/avatar.jpg' %}" alt="">
+                            {% endif %}
+                        </div>
+                        <h5 class="font-size-15 text-truncate">{{ user.username }}</h5>
+                        <p class="text-muted mb-0 text-truncate">{{ user.role }}</p>
+                    </div>
+                    
+                    <div class="col-sm-8">
+                        <div class="pt-4">
+                           
+                            <div class="row">
+                                {% for enseign in enseignant %} 
+                                <div class="col-6">
+                                    <h5 class="font-size-15">Contrat</h5>
+                                    <p class="text-muted mb-0">{{enseign.Statut}}</p>
+                                </div>
+                                <div class="col-6">
+                                    <h5 class="font-size-15">Institutions</h5>
+                                    <p class="text-muted mb-0">{{enseign.Ecole}}</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm">Voir Profil  <iconify-icon icon="mdi:arrow-right-circle"></iconify-icon></a>
+                            </div>
+                                {% endfor %} 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end card -->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Information Personnel</h4>
+
+                <div class="table-responsive">
+                    {% for et in enseignant %} 
+                    <table class="table table-nowrap mb-0">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Nom & prénoms :</th>
+                                <td>{{et.Nom}} {{et.Prenoms}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Mobile :</th>
+                                <td>{{et.Telephone}} / {{et.Contact}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">E-mail :</th>
+                                <td>{{et.Email}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Matricule :</th>
+                                <td>{{et.Matricule}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% endfor%} 
+                </div>
+            </div>
+        </div>
+        <!-- end card -->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Contactez nous!</h4>
+                <form class="outer-repeater"  method="post" action="{% url 'soumettre_messageens' %}">
+                    {% csrf_token %}
+                    <div data-repeater-list="outer-group" class="outer">
+                        <div data-repeater-item class="outer">
+                            <div class="form-group row mb-4">
+                                <label for="taskname" class="col-form-label col-lg-2">Titre</label>
+                                <div class="col-lg-10">
+                                    {{ form.sujet }}
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label col-lg-2">Mess</label>
+                                <div class="col-lg-10">
+                                    
+                                    {{ form.contenu }}
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-lg-10">
+                            <button type="submit" class="btn btn-primary">Envoyer</button>
+                        </div>
+                    </div>
+                </form> 
+            </div>
+        </div>  
+        <!-- end card -->
+    </div>         
+    
+    <div class="col-xl-8">
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mini-stats-wid">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="flex-grow-1">
+                                <p class="text-muted fw-medium mb-2">Nombre autorisations</p>
+                                <h4 class="mb-0">{{nombre_autorisations}} </h4>
+                            </div>
+
+                            <div class="flex-shrink-0 align-self-center">
+                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
+                                    <span class="avatar-title">
+                                        <i class="bx bx-package font-size-24"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mini-stats-wid">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="flex-grow-1">
+                                <p class="text-muted fw-medium mb-2">Nombre de classes gérées</p>
+                                <h4 class="mb-0">{{nombre_salle}}</h4>
+                            </div>
+
+                            <div class="flex-shrink-0 align-self-center">
+                                <div class="avatar-sm mini-stat-icon rounded-circle bg-primary">
+                                    <span class="avatar-title">
+                                        <i class="bx bx-hourglass font-size-24"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Mon emploi du temps </h4>
+                <div id="revenue-chart" class="apex-charts" dir="ltr"></div>
+                <div id="carouselSalles" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for salle in salles %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <img src="{{ salle.Planning.url }}" alt="Salle {{ salle.Salle }}" class="d-block img-fluid">
+                            <div class="carousel-caption d-none d-md-block text-white-50">
+                                <h5 class="text-white">{{ salle.Salle }}</h5>
+                                <p>{{ salle.Etablissement }} - {{ salle.Professeur }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselSalles" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Précédent</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselSalles" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Suivant</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Mes Classes</h4>
+                <div class="table-responsive">
+                    <table class="table table-nowrap table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col">Niveau</th> 
+                                <th scope="col">Classe</th>
+                                <th scope="col">Place</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for et in salles %} 
+                            <tr>
+                                <td>{{et.Niveau}}</td>
+                                <td>{{et.Salle}}</td> 
+                                <td>{{et.Nbreplace}}</td>
+                                <td class="text-end">
+                                    <div class="btn-group">
+                                        <button class="btn btn-secondary btn-sm" type="button">
+                                            Actions
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <iconify-icon icon="mdi:chevron-down-circle"></iconify-icon>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="{% url 'etuclasseauditeur'   id=et.id iid=et.Etablissement.id %}">Suivi des auditeurs</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{% url 'espaceliste' id=et.id iid=user.id %}">Documentations</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                             <td colspan="3">Aucune donnée disponible.</td>
+                            </tr>
+                            {% endfor %} 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+{% endblock content %}

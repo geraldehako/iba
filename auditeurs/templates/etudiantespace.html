@@ -1,0 +1,398 @@
+{% extends 'Pages/baseespace.html' %}
+
+{% block content %}
+{% load static %}
+ <!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">IBACySCHOOL</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="">Espace</a></li>
+                    <li class="breadcrumb-item active">Auditeur</li>
+                </ol>
+            </div>
+
+        </div> 
+    </div>
+</div>
+<div id="message-response"></div>
+
+<!-- end page title -->
+<div class="row">
+    <div class="col-xl-4">
+        <div class="card overflow-hidden">
+            <div class="bg-primary bg-soft">
+                <div class="row">
+                    <div class="col-7">
+                        <div class="text-primary p-3">
+                            <h5 class="text-primary">Content de te revoir !</h5>
+                            
+                        </div>
+                    </div>
+                    <div class="col-5 align-self-end">
+                        <img src="{% static 'assets/images/profile-img.png' %}" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body pt-0">
+                <div class="row">
+                    <div class="col-sm-4">
+                        
+                        <div class="avatar-md profile-user-wid mb-4">
+                            
+                            {% if user.profile_photo %}
+                            <img src="{{ user.profile_photo.url }} " alt="" class="img-thumbnail rounded-circle">
+                                 {% else %}
+                            <img class="rounded-circle avatar-xs" src="{% static 'assets/images/avatar.jpg' %}" alt="">
+                            {% endif %}
+                        </div>
+                        <h5 class="font-size-15 text-truncate">{{ user.username }}</h5>
+                        <p class="text-muted mb-0 text-truncate">{{ user.role }}</p>
+                    </div>
+                    
+                    <div class="col-sm-8">
+                        <div class="pt-4">
+                           
+                            <div class="row">
+                                {% for etudian in  etudiant %} 
+                                <div class="col-6">
+                                    <h5 class="font-size-15">Institution</h5>
+                                    <p class="text-muted mb-0">{{etudian.Ecole}}</p>
+                                </div>
+                                <div class="col-6">
+                                    <h5 class="font-size-15">Classe</h5>
+                                    <p class="text-muted mb-0">{{etudian.Niveau}} / {{etudian.Salle}}</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm">Voir Profil  <iconify-icon icon="mdi:arrow-right-circle"></iconify-icon></a>
+                            </div>
+                                {% endfor %} 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end card -->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Information Personnel</h4>
+
+                <div class="table-responsive">
+                    {% for et in etudiant %} 
+                    <table class="table table-nowrap mb-0">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Nom & prénoms :</th>
+                                <td>{{et.Nom}} {{et.Prenoms}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Mobile :</th>
+                                <td>{{et.Telephone}} / {{et.Contact}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">E-mail :</th>
+                                <td>{{et.Email}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Matricule :</th>
+                                <td>{{et.Matricule}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% endfor%} 
+                </div>
+            </div>
+        </div>
+        <!-- end card -->
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Contactez nous!</h4>
+                <form class="outer-repeater"  method="post" action="{% url 'soumettre_message' %}">
+                    {% csrf_token %}
+                    <div data-repeater-list="outer-group" class="outer">
+                        <div data-repeater-item class="outer">
+                            <div class="form-group row mb-4">
+                                <label for="taskname" class="col-form-label col-lg-2">Titre</label>
+                                <div class="col-lg-10">
+                                    {{ form.sujet }}
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label col-lg-2">Mess</label>
+                                <div class="col-lg-10">
+                                    
+                                    {{ form.contenu }}
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-lg-10">
+                            <button type="submit" class="btn btn-primary">Envoyer</button>
+                        </div>
+                    </div>
+                </form> 
+            </div>
+        </div>  
+        
+        <!-- end card -->
+    </div>         
+    
+    <div class="col-xl-8">
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mini-stats-wid">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="flex-grow-1">
+                                <p class="text-muted fw-medium mb-2">H.absences Semestre 1</p>
+                                {% if etudiados %} 
+                                <h4 class="mb-0">{{etudiados.0.HeuresabsenceS1}}</h4>
+                                            {% endif %} 
+                                
+                            </div>
+
+                            <div class="flex-shrink-0 align-self-center">
+                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
+                                    <span class="avatar-title">
+                                        <i class="bx bx-check-circle font-size-24"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mini-stats-wid">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="flex-grow-1">
+                                <p class="text-muted fw-medium mb-2">H.absences Semestre 2</p>
+                                {% if etudiados %} 
+                                <h4 class="mb-0">{{etudiados.0.HeuresabsenceS2}}</h4>
+                                            {% endif %} 
+                            </div>
+
+                            <div class="flex-shrink-0 align-self-center">
+                                <div class="avatar-sm mini-stat-icon rounded-circle bg-primary">
+                                    <span class="avatar-title">
+                                        <i class="bx bx-hourglass font-size-24"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mini-stats-wid">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="flex-grow-1">
+                                <p class="text-muted fw-medium mb-2">Scolarité restante</p>
+                                {% if etudiafin %} 
+                                <h4 class="mb-0">{{etudiafin.0.Montantrestant}} X0F</h4>
+                                            {% endif %} 
+                            </div>
+
+                            <div class="flex-shrink-0 align-self-center">
+                                <div class="avatar-sm mini-stat-icon rounded-circle bg-primary">
+                                    <span class="avatar-title">
+                                        <i class="bx bx-package font-size-24"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Emploi du temps</h4>
+                                       
+
+                                        <div class="">
+                                            
+                                            {% if sall %} 
+                                            <img src="{{sall.0.Planning.url}}" class="img-fluid" alt="Responsive image">
+                                            {% endif %} 
+                                        </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Mes cours</h4>
+                <div class="table-responsive">
+                    <table class="table table-nowrap table-hover mb-0" >
+                        <thead  class="table-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Matières</th>
+                                <th scope="col">Cours</th>
+                                <th scope="col">Titre</th>
+                                <th scope="col">Modifié</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for et in data %} 
+                            <tr>
+                                <td>{{et.id}}</td>
+                                <td>{{et.Typematiere}}</td>
+                                <td>{{et.Cours}}</td>
+                                <td>{{et.Title}}</td>
+                                <td><a href="{% url 'document_download' et.id %}">{{et.File}}</a></td>
+                            </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="3">Aucune donnée disponible.</td>
+                                </tr>
+                            {% endfor %} 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- debut note -->
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Mes notes</h4>
+
+                <!-- Nav tabs -->
+                
+                <ul class="nav nav-pills nav-justified" role="tablist">
+                    <li class="nav-item waves-effect waves-light">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#home-1" role="tab">
+                            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                            {% for sess in sessi %}<span class="d-none d-sm-block">{{sess.Decoupage}}</span> {% endfor %} 
+                        </a>
+                    </li>
+                    <li class="nav-item waves-effect waves-light">
+                        <a class="nav-link" data-bs-toggle="tab" href="#profile-1" role="tab">
+                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                            {% for sess in sessio %}<span class="d-none d-sm-block">{{sess.Decoupage}}</span> {% endfor %}
+                        </a>
+                    </li>
+                    
+                </ul>
+                
+                <!-- Tab panes -->
+                <div class="tab-content p-3 text-muted">
+                    <div class="tab-pane active" id="home-1" role="tabpanel">
+                        <p class="mb-0">
+                            <div class="table-responsive">
+                                <table class="table table-nowrap table-hover mb-0">
+                                    <thead  class="table-light">
+                                        <tr>
+                                            <th scope="col">Matières</th>
+                                            <th scope="col">Cours</th>
+                                            <th scope="col">Moyennes</th>
+                                            <th scope="col">Appréciations</th>
+                                            <th scope="col">Professeur</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for et in grades %} 
+                                        <tr>
+                                            <td>{{et.Typematiere}}</td>
+                                            <td>{{et.Cours}}</td>
+                                            <td>{{et.Note}}</td>
+                                            <td>{{et.Appreciation}}</td>
+                                            <td>{{et.Professeur}}</td>
+                                        </tr>
+                                            {% empty %}
+                                            <tr>
+                                                <td colspan="3">Aucune donnée disponible.</td>
+                                            </tr>
+                                        {% endfor %} 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </p>
+                    </div>
+                    <div class="tab-pane" id="profile-1" role="tabpanel">
+                        <p class="mb-0">
+                            <div class="table-responsive">
+                                <table class="table table-nowrap table-hover mb-0">
+                                     <thead  class="table-light">
+                                        <tr>
+                                            <th scope="col">Matières</th>
+                                            <th scope="col">Cours</th>
+                                            <th scope="col">Moyennes</th>
+                                            <th scope="col">Appréciations</th>
+                                            <th scope="col">Professeur</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for et in grade %} 
+                                        <tr>
+                                            <td>{{et.Typematiere}}</td>
+                                            <td>{{et.Cours}}</td>
+                                            <td>{{et.Note}}</td>
+                                            <td>{{et.Appreciation}}</td>
+                                            <td>{{et.Professeur}}</td>
+                                        </tr>
+                                            {% empty %}
+                                            <tr>
+                                                <td colspan="3">Aucune donnée disponible.</td>
+                                            </tr>
+                                        {% endfor %} 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </p>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+      $('#message-form').on('submit', function(e) {
+        e.preventDefault();  // Empêche la soumission par défaut du formulaire
+  
+        var form = $(this);
+        var url = form.attr('action');
+  
+        $.ajax({
+          type: 'POST',
+          url: url,
+          data: form.serialize(),
+          success: function(response) {
+            if (response.success) {
+              // Afficher un message de succès ou effectuer d'autres actions nécessaires
+              $('#message-response').text('Message envoyé avec succès.');
+              form.trigger('reset');  // Réinitialiser le formulaire
+            } else {
+              // Afficher les erreurs de validation du formulaire
+              var errors = response.errors;
+              for (var field in errors) {
+                $('#id_' + field + '_error').text(errors[field].join(', '));
+              }
+            }
+          },
+          error: function(xhr, errmsg, err) {
+            console.log(xhr.status + ': ' + xhr.responseText);
+            // Afficher une notification d'erreur ou effectuer d'autres actions nécessaires en cas d'erreur
+          }
+        });
+      });
+    });
+  </script>
+  
+<!-- end row -->
+{% endblock content %}
