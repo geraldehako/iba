@@ -1,0 +1,93 @@
+{% extends 'Pages/base.html' %}
+
+{% block content %}
+{% load static %}
+ <!-- start page title -->
+ <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">IBACySCHOOL</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'dashboardmenu' %}">Administration</a></li>
+                    <li class="breadcrumb-item active">Users</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                      <h6 class="mb-0">Consulter la liste des Users</h6>
+                    </div>
+                    <div class="col-6 text-end">
+                        <a class="btn btn-danger waves-effect waves-light" href="{% url 'ajoutuser' %}"><iconify-icon icon="mdi:content-save-plus"></iconify-icon>  Nouvel User</a>
+                    </div>
+                  </div><br><br>
+                {% if enseignantliste %} 
+                <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead class="table-light">
+                    <tr> 
+                        <th scope="col" style="width: 70px;">#</th> 
+                        <th>Nom</th>
+                        <th>Prenoms</th>
+                        <th>Login</th>
+                        <th>Date Activation</th>
+                        <th>Derniere Connexion</th>
+                        <th>Role</th>
+                        <th class="text-end" style="width: 100px;"></th> 
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+                        {% for et in enseignantliste %} 
+                        <tr>
+                            <td>
+                                
+                                {% if et.profile_photo %}
+                                    <img class="rounded-circle avatar-xs" src="{{ et.profile_photo.url }}" alt="{{ et.first_name }}">
+                                {% else %}
+                                    <img class="rounded-circle avatar-xs" src="{% static 'assets/images/avatar.jpg' %}" alt="{{ et.first_name }}">
+                                {% endif %}
+
+                            </td>
+                            <td>{{et.first_name}}</td>
+                            <td>{{et.last_name}}</td>
+                            <td>{{et.username}}</td>
+                            <td>{{et.date_joined}}</td>
+                            <td>{{et.last_login}}</td>
+                            <td>{{et.role}}</td>
+                            <td class="text-end">
+                                <div class="btn-group">
+                                    <button class="btn btn-secondary btn-sm" type="button"> 
+                                        Actions
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="mdi mdi-chevron-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{% url 'modifieruser' et.id %}">Modifier</a>
+                                        <a class="dropdown-item" href="{% url 'supprimeruser' et.id %}">Supprimer</a>
+                                    </div>
+                                </div>
+                                </td>
+                        </tr>
+                        {% endfor %} 
+                    </tbody>
+                        
+                </table>
+                {% endif %}
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+{% endblock content %}
