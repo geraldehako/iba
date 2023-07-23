@@ -1,0 +1,161 @@
+{% extends 'Pages/basecaisse.html' %}
+
+{% block content %}
+ <!-- start page title -->
+ <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">IBACySCHOOL</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Tableau de bord</a></li>
+                    <li class="breadcrumb-item active">Organigramme</li>
+                </ol>
+            </div>
+
+        </div> 
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="card-title mb-4">POPULATION PAR ÉCOLE</h4>
+
+                <div id="donut-chart">
+                    <!-- Insérez le graphique ici -->
+                    <canvas id="etudiantsParEcoleChart"></canvas>
+                </div>
+
+                <script>
+                    // Récupérer les données sur les écoles et le nombre d'étudiants depuis votre vue Django
+                    var ecoles = {{ ecoles|safe }};
+                    var nombreEtudiants = {{ nombre_etudiants|safe }};
+
+                    // Créez le graphique en utilisant Chart.js
+                    var etudiantsParEcoleChart = new Chart(document.getElementById('etudiantsParEcoleChart'), {
+                        type: 'bar',
+                        data: {
+                            labels: ecoles,
+                            datasets: [{
+                                label: 'Nombre d\'étudiants',
+                                data: nombreEtudiants,
+                                backgroundColor: 'rgba(75, 192, 192, 0.8)', // Couleur de fond des barres
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false, // Permet de définir la taille du graphique
+                            scales: {
+                                y: {
+                                    beginAtZero: true, // Commence à zéro sur l'axe des Y
+                                    precision: 0 // Pas de décimales sur l'axe des Y
+                                }
+                            }
+                        }
+                    });
+                </script>
+
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+
+                <h2>Nombre d'auditeurs inscrits par salle</h2>
+                <canvas id="bar2Chart"></canvas>
+
+                <script>
+                    // Récupérer les données depuis le contexte de rendu
+                    var bar2Labels = {{ bar2_labels|safe }};
+                    var bar2Data = {{ bar2_data|safe }};
+                    
+                    // Bar Chart
+                    var bar2Config = {
+                        type: 'bar',
+                        data: {
+                            labels: bar2Labels,
+                            datasets: [
+                                {
+                                    label: 'Nombre d\'auditeurs inscrits',
+                                    data: bar2Data,
+                                    backgroundColor: '#36A2EB' // Couleur des barres pour le nombre d'auditeurs inscrits
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    };
+
+                    var bar2Chart = new Chart(document.getElementById('bar2Chart'), bar2Config);
+                </script>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+
+<div class="row row-sm">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h2>Statistiques des versements par jour</h2>
+                <canvas id="barChart2"></canvas>
+
+                <script>
+                    // Récupérer les données depuis le contexte de rendu
+                    var barLabels = {{ bar_labels|safe }};
+                    var barDataCount = {{ bar_data_count|safe }};
+                    var barDataAmount = {{ bar_data_amount|safe }};
+                    
+                    // Bar Chart
+                    var barConfig = {
+                        type: 'bar',
+                        data: {
+                            labels: barLabels,
+                            datasets: [
+                                {
+                                    label: 'Nombre de versements',
+                                    data: barDataCount,
+                                    backgroundColor: '#36A2EB' // Couleur des barres pour le nombre de versements
+                                },
+                                {
+                                    label: 'Montant total des versements',
+                                    data: barDataAmount,
+                                    backgroundColor: '#FF6384' // Couleur des barres pour le montant total des versements
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    };
+
+                    var barChart2 = new Chart(document.getElementById('barChart2'), barConfig);
+                </script>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div>
+
+{% endblock content %}

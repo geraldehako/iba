@@ -1,0 +1,355 @@
+{% extends 'Pages/baserh.html' %}
+
+{% block content %}
+ <!-- start page title -->
+ <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">IBACySCHOOL</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'dashboardrh' %}">Tableau de bord</a></li>
+                    <li class="breadcrumb-item active">Organigramme</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="row">
+    <div class="col-md-2">
+        <div class="card mini-stats-wid">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                        <p class="text-muted fw-medium">Missions en cours</p>
+                        <h4 class="mb-0">{{ missions_encours }}</h4>
+                    </div>
+
+                    <div class="flex-shrink-0 align-self-center">
+                        <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
+                            <span class="avatar-title">
+                                <iconify-icon icon="mdi:elevator-passenger-outline"></iconify-icon>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card mini-stats-wid">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                        <p class="text-muted fw-medium">Absences Personnels</p>
+                        <h4 class="mb-0">{{autper_encours}}</h4>
+                    </div>
+
+                    <div class="flex-shrink-0 align-self-center ">
+                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                            <span class="avatar-title rounded-circle bg-primary">
+                                <i class="bx bx-archive-in font-size-24"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card mini-stats-wid">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                        <p class="text-muted fw-medium">Absences Enseignants</p>
+                        <h4 class="mb-0">{{autens_encours}}</h4>
+                    </div>
+
+                    <div class="flex-shrink-0 align-self-center">
+                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                            <span class="avatar-title rounded-circle bg-primary">
+                                <i class="bx bx-purchase-tag-alt font-size-24"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card mini-stats-wid">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                        <p class="text-muted fw-medium">Absences auditeurs</p>
+                        <h4 class="mb-0">{{autaud_encours}}</h4>
+                    </div>
+
+                    <div class="flex-shrink-0 align-self-center">
+                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                            <span class="avatar-title rounded-circle bg-primary">
+                                <i class="bx bx-purchase-tag-alt font-size-24"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card mini-stats-wid">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                        <p class="text-muted fw-medium">Auditeurs Actifs</p>
+                        <h4 class="mb-0">{{activeauditeur}}</h4>
+                    </div>
+
+                    <div class="flex-shrink-0 align-self-center">
+                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                            <span class="avatar-title rounded-circle bg-primary">
+                                <i class="bx bx-purchase-tag-alt font-size-24"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card mini-stats-wid">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                        <p class="text-muted fw-medium">Enseignants Actifs</p>
+                        <h4 class="mb-0">{{activeens}}</h4>
+                    </div>
+
+                    <div class="flex-shrink-0 align-self-center">
+                        <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                            <span class="avatar-title rounded-circle bg-primary">
+                                <i class="bx bx-purchase-tag-alt font-size-24"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+
+                
+                
+                <h4>Nombre d'absences par mois</h4>
+                <canvas id="barChart"></canvas>
+                
+                <script>
+                    // Récupérer les données depuis le contexte de rendu
+                    var labels = {{ labels|safe }};
+                    var data = {{ data|safe }};
+                
+                    // Bar Chart
+                    var barConfig = {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Nombre d\'absences',
+                                data: data,
+                                backgroundColor: '#36A2EB' // Couleur des barres
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    };
+                
+                    var barChart = new Chart(document.getElementById('barChart'), barConfig);
+                </script>
+                
+                    
+                
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+
+    <div class="col-xl-3">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">POPULATION DES ENSEIGNANTS PAR GENRE</h4>
+
+ 
+                <div  id="pie-chart">
+                    <canvas id="genderChartens"></canvas>
+                </div>
+                
+                <script>
+                    // Récupérez les données sur le genre des étudiants depuis votre vue Django
+                    var maleCountens = {{ male_countens }};
+                    var femaleCountens = {{ female_countens }};
+                
+                    // Créez un tableau avec les données du genre et le nombre
+                    var genderDataens = [maleCountens, femaleCountens];
+                    var genderLabelsens = [
+                        'Hommes (' + maleCountens + ')',
+                        'Femmes (' + femaleCountens + ')'
+                    ];
+                
+                    // Créez le graphique en utilisant Chart.js
+                    var genderChartens = new Chart(document.getElementById('genderChartens'), {
+                        type: 'doughnut',
+                        data: {
+                            labels: genderLabelsens,
+                            datasets: [{
+                                data: genderDataens,
+                                backgroundColor: ['#9966FF', '#33CCCC'], // Couleurs pour les segments du donut
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false, // Permet de définir la taille du graphique
+                            aspectRatio: 0.8 // Définissez la proportion largeur/hauteur du graphique (ajustez cette valeur selon vos besoins)
+                        }
+                    });
+                </script>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+    <div class="col-xl-3">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="card-title mb-4">POPULATION DES ÉTUDIANTS PAR GENRE</h4>
+
+
+                <div  id="pie-chart">
+                    <canvas id="genderChart"></canvas>
+                </div>
+                
+                <script>
+                    // Récupérez les données sur le genre des étudiants depuis votre vue Django
+                    var maleCount = {{ male_count }};
+                    var femaleCount = {{ female_count }};
+                
+                    // Créez un tableau avec les données du genre et le nombre
+                    var genderData = [maleCount, femaleCount];
+                    var genderLabels = [
+                        'Hommes (' + maleCount + ')',
+                        'Femmes (' + femaleCount + ')'
+                    ];
+                
+                    // Créez le graphique en utilisant Chart.js
+                    var genderChart = new Chart(document.getElementById('genderChart'), {
+                        type: 'doughnut',
+                        data: {
+                            labels: genderLabels,
+                            datasets: [{
+                                data: genderData,
+                                backgroundColor: ['#FF6384', '#36A2EB'], // Couleurs pour les segments du donut
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false, // Permet de définir la taille du graphique
+                            aspectRatio: 0.8 // Définissez la proportion largeur/hauteur du graphique (ajustez cette valeur selon vos besoins)
+                        }
+                    });
+                </script>
+                
+                
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+
+</div> <!-- end row -->
+
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="card-title mb-4">PYRAMIDE DES AGES</h4>
+                
+
+
+                <canvas id="pyramideChart"></canvas>
+
+                <script>
+                    var tranches_age = {{ tranches_age|safe }};
+                    var count_personnels = {{ count_personnels|safe }};
+                    var count_etudiants = {{ count_etudiants|safe }};
+                    var count_enseignants = {{ count_enseignants|safe }};
+
+                    var pyramideConfig = {
+                        type: 'bar',
+                        data: {
+                            labels: tranches_age,
+                            datasets: [
+                                {
+                                    label: 'Personnels',
+                                    data: count_personnels,
+                                    backgroundColor: 'rgba(75, 192, 192, 0.8)'
+                                },
+                                {
+                                    label: 'Etudiants',
+                                    data: count_etudiants,
+                                    backgroundColor: 'rgba(255, 99, 132, 0.8)'
+                                },
+                                {
+                                    label: 'Enseignants',
+                                    data: count_enseignants,
+                                    backgroundColor: 'rgba(54, 162, 235, 0.8)'
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                x: {
+                                    stacked: true
+                                },
+                                y: {
+                                    stacked: true,
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    };
+
+                    var pyramideChart = new Chart(document.getElementById('pyramideChart'), pyramideConfig);
+                </script>
+
+
+
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+
+    
+</div> 
+<!-- end row -->
+
+</div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+{% endblock content %}
