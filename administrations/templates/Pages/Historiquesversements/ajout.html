@@ -1,0 +1,121 @@
+{% extends 'Pages/basecaisse.html' %}
+
+{% block content %}
+<style>
+  .input-red-border {
+      border: 1px solid red;
+  }
+
+  .input-auto-width {
+      width: auto;
+  }
+</style>
+ 
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">IBACySCHOOL</h4>
+
+            <div class="page-title-right"> 
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'typematliste' %}">Type matières</a></li>
+                    <li class="breadcrumb-item active">Liste</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Formulaire de Paiement</h4>
+
+                <form method="post" action="{% url 'sauvegarder_historique_vers' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="niveau_id" value="{{ niveau.id }}"> 
+                    <input type="hidden" name="etudiant_id" value="{{ etudiant.id }}">
+
+                    <div class="col-xl-12">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="card md-b-20">
+                                    <div class="card card-header tx-bold" style="font-weight: bold; font-size: 18px;">{{ etudiant.Nom }} {{ etudiant.Prenoms }}</div>
+
+                                    <div class="card card-body">
+                                        <div class="form-group col-md-12">
+                                            Ecole: {{ etudiant.Ecole }}/{{ etudiant.Niveau }}
+                                        </div>
+                                    </div>       
+                                </div>                       
+                            </div>
+                            
+                            {% if catalogues %}
+                            <div class="col-9">
+                                <div class="card bd-0">
+                                    <div class="card card-header tx-bold">LIBELLE DE PAIEMENT</div>
+                                    <div class="card card-body">
+                                        <h3 class="tx-bold" id="info-montant-reglement">MONTANT: {{ catalogues.0.Prix }} XOF</h3>
+                                        <input type="hidden" name="montant-reglement" id="montant-reglement">
+
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th><span class="">Libellé de règlement</span></th>
+                                                    <th><span class="">Montant à payer</span></th>
+                                                    <th><span class="">Montant Versé</span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for catalogue in catalogues %}
+                                                <tr>
+                                                    <td>
+                                                        <label class="ckbox">
+                                                            <span class="tx-bold">{{ catalogue.Nom }}</span>
+                                                        </label>
+                                                    </td>
+                                                    <td>{{ catalogue.Prix }} XOF</td>
+                                                    <td><input type="number" name="montantvers" id="id_montantvers" step="0.01" required class="input-red-border" onchange="enableDisableSubmit(this)"></td>
+                                                </tr>
+                                                {% endfor %}
+                                                <tr>
+                                                    <td colspan="2" align="right">TOTAL RESTE A PAYER</td>
+                                                    <td><span class="form-control- tx-bold tx-dark">{{ catalogues.0.Prix }} XOF</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><!-- card-body -->
+                                </div><!-- card -->
+                            </div><!-- col-9 -->
+                            {% endif %}
+                        </div><!-- row -->
+                    </div><!-- col-xl-12 -->
+
+                    <div class="mt-4 hstack gap-2">
+                        <button type="submit" class="btn btn-soft-success w-100" id="submitBtn" disabled>Valider</button>
+                        <a class="btn btn-soft-primary w-100" href="{% url 'listenon' %}">Retour en Arrière</a>
+                    </div>
+                </form>
+            </div><!-- card-body -->
+        </div><!-- card -->
+    </div><!-- col-xl-12 -->
+</div><!-- row -->
+
+<script>
+  function enableDisableSubmit(input) {
+      var submitBtn = document.getElementById('submitBtn');
+      var montantVers = parseFloat(input.value.trim());
+
+      if (isNaN(montantVers) || montantVers <= 0) {
+          submitBtn.disabled = true;
+      } else {
+          submitBtn.disabled = false;
+      }
+  }
+</script>
+
+
+{% endblock content %}

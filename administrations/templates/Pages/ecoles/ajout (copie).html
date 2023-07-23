@@ -1,0 +1,22 @@
+{% extends 'Pages/base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Form Grid Layout</h4>
+
+                    <form class="" action="" method="post">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <input type="submit" class="btn btn-primary w-md" value="A">
+                    </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

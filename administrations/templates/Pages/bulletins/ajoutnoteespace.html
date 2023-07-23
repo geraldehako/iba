@@ -1,0 +1,74 @@
+{% extends 'Pages/baseespace.html' %}
+
+{% block content %}
+<!-- start page title -->
+<div class="row"> 
+  <div class="col-12">
+      <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+          <h4 class="mb-sm-0 font-size-18">IBACySCHOOL</h4>
+
+          <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item"><a href="{% url 'enseignantespace' %}">Moyennes</a></li>
+                  <li class="breadcrumb-item active">Enregistrement</li>
+              </ol>
+          </div>
+
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-body">
+              <h4 class="card-title mb-4">Formulaire de saisie des moyennes</h4>
+
+              {% if messages %}
+                <div class="">
+                  {% for message in messages.get_warning_messages %}
+                    <div class="alert alert-warning" role="alert">
+                        {{ message }}
+                    </div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <div class="row"> 
+     
+         
+        <div class="mb-3 row">
+          <label class="col-md-2 col-form-label">Cours</label>
+          <div class="col-md-10">
+            <select class="form-select" name="course" required>
+              {% for course in courses %}
+                <option value="{{ course.id }}">{{ course.Matiere }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+    
+        <div class="mb-3 row">
+          <label for="example-text-input" class="col-md-2 col-form-label">Moyenne</label>
+          <div class="col-md-10">
+            <input class="form-control" type="number" name="score" step="0.01" required>
+          </div>
+        </div>
+ 
+
+        <div class="mt-4 hstack gap-2" >
+          <button type="submit" class="btn btn-soft-success w-100">Valider</button>
+          <a class="btn btn-soft-primary w-100" href="{% url 'enseignantespace' %}">Retour en Arrière</a>
+        </div>
+      </div>
+    </div>
+  </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

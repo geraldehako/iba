@@ -1,0 +1,73 @@
+{% extends 'Pages/basecaisse.html' %}
+
+{% block content %}
+ <!-- start page title --> 
+ <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">IBACySCHOOL</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'dashboardcaisse' %}">Caisse</a></li>
+                    <li class="breadcrumb-item active">Liste</li>
+                </ol>
+            </div>
+
+        </div> 
+    </div>
+</div>
+<!-- end page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                      <h6 class="mb-0">Liste des versements</h6>
+                    </div>
+                    <div class="col-6 text-end">
+                      
+                    </div>
+                  </div><br><br>
+                {% if etu %} 
+                <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead class="table-light">
+                    <tr>
+                        
+                        <th>Etablissement</th>
+                        <th>Niveau</th>
+                        <th>Classe</th>
+                        <th>Nom</th>
+                        <th>Scolarité</th>
+                        <th>Solde</th>
+                        <th>Montant Versement</th>
+                        
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+                        {% for et in etu %} 
+                        <tr> 
+                            
+                            <td>{{et.Ecole}}</td>
+                            <td>{{et.Niveau}}</td>
+                            <td>{{et.Salle}}</td>
+                            <td>{{et.Nom}}</td>
+                            <td>{{et.Montantscolarit}} X0F</td> 
+                            <td>{{et.Montantrestant}} X0F</td>
+                            <td>{{et.Montantvers}} X0F</td>
+                            
+                        </tr>
+                        {% endfor %} 
+                    </tbody>
+                        
+                </table>
+                {% endif %}
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+{% endblock content %}

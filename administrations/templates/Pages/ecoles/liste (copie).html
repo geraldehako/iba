@@ -1,0 +1,55 @@
+{% extends 'Pages/base.html' %}
+
+{% block content %}
+
+
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                      <h6 class="mb-0">Consulter la liste des établissements scolaires</h6>
+                    </div>
+                    <div class="col-6 text-end">
+                      <a class="btn btn-primary waves-effect btn-label waves-light" href="{% url 'ecolebase' %}"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add New C</a>
+                    </div>
+                </div></br>
+            {% if ecoleliste %} 
+            <div class="row">
+                {% for ecole in ecoleliste %} 
+                <div class="col-md-6 col-xl-3">
+                    
+                    <!-- Simple card -->
+                    <div class="card">
+                        <img class="card-img-top img-fluid" src="{{ ecole.image.url }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ecole.Etablissement}}</h4>
+                            <p class="card-text">{{ecole.Etablissement}}.{{ecole.Telephone}}.{{ecole.Contact}}.{{ecole.Adresse}}/{{ecole.Natureecole}}</p>
+                            <!-- Small button groups (default and split) -->
+                        
+                            <div class="btn-group">
+                                <button class="btn btn-secondary btn-sm" type="button">
+                                    Actions
+                                </button>
+                                <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="mdi mdi-chevron-down"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Rapport pédagogique</a>
+                                    <a class="dropdown-item" href="#">Catalogue de prix</a>
+                                    <a class="dropdown-item" href="#">Salles pédagogique</a>
+                                    
+                                    <a class="dropdown-item" href="{% url 'ecoleclasse' ecole.id %}">Effectif auditeurs</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{% url 'ecoleupdate' ecole.id %}">Modifier</a>
+                                    <a class="dropdown-item" href="#">Supprimer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div><!-- end col -->
+                {% endfor %}
+            </div>
+                
+               
+            {% endif %}
+        
+{% endblock content %}

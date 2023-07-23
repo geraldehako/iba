@@ -1,0 +1,126 @@
+{% extends 'Pages/baserh.html' %}
+
+{% block content %}
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0 font-size-18">EDU_CMA</h4>
+                <div class="page-title-right"> 
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'listemis' %}">Historique</a></li>
+                        <li class="breadcrumb-item active">Missions</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Formulaire de validation</h4>
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <div class="row">                
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label for="formrow-password-input" class="form-label">Est autorisé à se rendre à</label>
+                                        {{ form.Lieumission }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label for="formrow-password-input" class="form-label">Pour la mission suivante</label>
+                                        {{ form.Mission }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-email-input" class="form-label">Départ le</label>
+                                        {{ form.Datedebut }}
+                                    </div>
+                                </div>
+                            
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-email-input" class="form-label">Retour le</label>
+                                        {{ form.Datefin }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                
+                                <div class="col-md-10">
+                                    <div class="mb-3">
+                                        <label for="formrow-password-input" class="form-label">Il sera accompagné de</label>
+                                        {{ form.Delegation }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-email-input" class="form-label">Moyens de transports suivant</label>
+                                        {{ form.Moyen }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-email-input" class="form-label">Retour le</label>
+                                        {{ form.Datemission }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-password-input" class="form-label">Avis</label>
+                                        {{ form.Aviss }}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row" hidden>
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-email-input" class="form-label">Personnel</label>
+                                        {{ form.Personnel }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2"> 
+                                    <div class="mb-3">
+                                        <label for="formrow-email-input" class="form-label">Service</label>
+                                        {{ form.Service }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-email-input" class="form-label">Poste</label>
+                                        {{ form.Poste }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 hstack gap-2">
+                            <button type="submit" class="btn btn-soft-success w-100">Valider</button>
+                            <a class="btn btn-soft-primary w-100" href="{% url 'ecoleliste' %}">Retour en Arrière</a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

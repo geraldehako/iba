@@ -1,0 +1,129 @@
+{% extends 'Pages/base.html' %}
+{% load static %}
+{% block content %}
+{% if etu %}
+
+<!-- end page title --> 
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body border-bottom">
+                
+                
+                
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="text-lg-center"><address>
+                            <strong><h5 class="fw-semibold">ÉGLISE PROTESTANTE ÉVANGELIQUE</h5></strong>
+                            CMA DE COTE D'IVOIRE<br>
+                            -----------------<br>
+                        <img src="{{ etu.0.Photo.url }}" class="rounded-circle avatar-xl" alt="200x200" height="100"><br><br> 
+                        <strong> {{ etu.0.Ecole }}</strong> <br>    
+                        +225 0707 6127 28 / +225 0103 5404 00<br>
+                        ibacy1965@gmail.com
+                        </address></div>
+                    </div>
+
+                    <div class="col-sm-6 text-sm-end">
+
+                        <div class="text-lg-center"><address class="mt-2 mt-sm-0">
+                            <strong><h5 class="fw-semibold">REPUBLIQUE DE COTE D'IVOIRE</h5></strong>
+                            Union-Discipline-Travail<br>
+                            -----------------<br>
+                            <div class="py-2 mt-3">
+                                <h3 class="font-size-15 fw-bold">Effectif: {{ nombre_salle }}</h3>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-bordered mb-0">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th colspan="2">{{ etu.0.Salle }}</th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">...</th>
+                                            <th scope="col">...</th>
+                                            
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                
+                            </div>
+                        </address></div>
+
+                    </div>
+                   
+                        
+                    
+                </div>
+                
+                
+            </div>
+            <div class="card-body border-bottom">
+                <div>
+                    <strong>LISTE DE CLASSE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {{ etu.0.Salle }}</strong>
+                </div>
+                
+            </div>
+            <div class="card-body">
+                
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle nowrap">
+                        <thead  class="table-success">
+                            <tr>
+                                <th scope="col" style="width: 30px;">MATRICULE</h6></th>
+                                <th scope="col" style="width: 150px;">NOM ET PRÉNOMS</th>
+                                <th scope="col" style="width: 25px;">GENRE</th>
+                                <th scope="col" class="text-center" style="width: 25px;">...</th>
+                                <th scope="col" class="text-center" style="width: 25px;">...</th>
+                                <th scope="col" class="text-center" style="width: 25px;">...</th>
+                                <th scope="col" class="text-center" style="width: 25px;">...</th>
+                                <th scope="col" class="text-center" style="width: 25px;">...</th>
+                                <th scope="col" class="text-center" style="width: 25px;">...</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for eti in etu %}
+                            <tr>
+                                <td scope="row">{{ eti.Matricule}}</td>
+                                <td>{{ eti.Nom}} {{ eti.Prenoms }}</td>
+                                <td>{{ eti.Sexe }}</td>
+                                <td class="text-end"></td>
+                                <td class="text-end"></td>
+                                <td class="text-end"></td>
+                                <td class="text-end"></td>
+                                <td class="text-end"></td>
+                                <td class="text-end"></td>
+                            </tr>
+                            {% endfor %}
+                            
+                             
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-print-none">
+                    <div class="float-end">
+                        <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light me-1"><iconify-icon icon="mdi:printer-outline"></iconify-icon></a>
+                        <a href="javascript: void(0);" class="btn btn-primary w-md waves-effect waves-light">Send</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+{% endif %}
+
+
+{% endblock content %}

@@ -1,0 +1,113 @@
+{% extends 'Pages/base.html' %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-xl-12">
+      <div class="card">
+          <div class="card-body">
+              <h4 class="card-title mb-4">Form Grid Layout</h4>
+
+              <form class="" action="" method="post">
+                {% csrf_token %}
+                <div class="row">                
+                  <div class="col-md-3">
+                      <div class="mb-3">
+                          <label for="formrow-email-input" class="form-label">Nom</label>
+                          {{ form.Nom }}
+                      </div>
+                  </div>
+                  <div class="col-md-7">
+                      <div class="mb-3">
+                          <label for="formrow-password-input" class="form-label">Prénoms</label>
+                          {{ form.Prenoms }}
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="formrow-password-input" class="form-label">Genre</label>
+                        
+                        {{ form.Sexe }}
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="row">                
+                  <div class="col-md-2">
+                      <div class="mb-3">
+                          <label for="formrow-email-input" class="form-label">Date Naissance</label>
+                          {{ form.Datenaissance }}
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="formrow-email-input" class="form-label">Lieu Naissance</label>
+                        {{ form.Lieunaissance }}
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="formrow-email-input" class="form-label">Email</label>
+                        {{ form.Email }}
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="mb-3">
+                          <label for="resume" class="form-label">Photo</label>
+                          <input type="file" name="Prenoms" class="form-control" id="resume">
+                      </div>
+                  </div>
+                </div>
+                <div class="row">                
+                  <div class="col-md-3">
+                      <div class="mb-3">
+                          <label for="formrow-email-input" class="form-label">Téléphone</label>
+                          {{ form.Telephone }}
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="mb-3">
+                          <label for="formrow-password-input" class="form-label">Contact</label>
+                          {{ form.Contact }}
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="formrow-password-input" class="form-label">Ecole</label>
+                        
+                          {{ form.Ecole }}
+                      
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="formrow-password-input" class="form-label">Niveau</label>
+                        
+                          {{ form.Niveau }}
+                      
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="formrow-password-input" class="form-label">Classe</label>
+                        
+                          {{ form.Salle }}
+                      
+                    </div>
+                  </div>
+                </div>
+                      
+                   
+                      
+                    
+                  <div>
+                    <input type="submit" class="btn btn-primary w-md" value="A">
+                  </div>
+              </form>
+          </div>
+        <!-- end card body -->
+    </div>
+    <!-- end card -->
+</div></div>
+<!-- end col -->
+{% endblock content %}

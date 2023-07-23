@@ -1,0 +1,82 @@
+{% extends 'Pages/base.html' %}
+
+{% block content %}
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">IBACySCHOOL</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'ecoleliste' %}">Institutions</a></li>
+                    <li class="breadcrumb-item active">Documentation</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                      <h6 class="mb-0">Consulter la liste des supports de cours</h6>
+                    </div>
+                    <div class="col-6 text-end">
+                      <a class="btn btn-danger waves-effect waves-light" href="{% url 'documentadd' %}"><iconify-icon icon="mdi:content-save-plus"></iconify-icon>  Document</a>
+                    </div>
+                  </div><br><br>
+                  {% if queryse %} 
+                <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Matière</th>
+                        <th>Cours</th>
+                        <th>Titre</th>
+                        <th class="text-end" style="width: 100px;"></th>
+                    </tr>
+                    </thead>
+ 
+
+                    <tbody>
+                        {% for et in queryse %} 
+                        <tr>
+                            <td>{{et.Typematiere}}</td>
+                            <td>{{et.Cours}}</td>
+                            <td>{{et.Title}}    -  <a href="{% url 'document_download' et.id %}">Télécharger le document</a>
+                            </td>
+                            <td class="text-end">
+                            <div class="btn-group">
+                                <button class="btn btn-secondary btn-sm" type="button">
+                                    Actions
+                                </button>
+                                <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <iconify-icon icon="mdi:chevron-down-circle"></iconify-icon>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{% url 'docmodif' et.id %}">Modifier</a>
+                                    <a class="dropdown-item" href="{% url 'delete_doc' et.id %}">Supprimer</a>
+                                    <a class="dropdown-item" href="{% url 'document_detail' et.id %}">Detail</a>
+                                </div>
+                            </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                         <td colspan="3">Aucune donnée disponible.</td>
+                        </tr>
+                        {% endfor %} 
+                    </tbody>
+                        
+                </table>
+                {% endif %}
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+{% endblock content %}

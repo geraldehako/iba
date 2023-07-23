@@ -1,0 +1,76 @@
+{% extends 'Pages/base.html' %}
+
+{% block content %}
+ <!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">EDU_CMA</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'ecoleliste' %}">Institutions</a></li>
+                    <li class="breadcrumb-item active">Année scolaire</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                      <h6 class="mb-0">Consulter la liste des années scolaires</h6>
+                    </div>
+                    <div class="col-6 text-end">
+                      <a class="btn btn-primary waves-effect btn-label waves-light" href="{% url 'anneescolairebase' %}"><i class="fas fa-plus"></i>&nbsp;&nbsp;Nouvel Année scolaire</a>
+                    </div>
+                  </div><br><br>
+                {% if anneescolaireliste %} 
+                <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                    <tr>
+                        <th>Année scolaire</th>
+                        <th>Statut</th>
+                        <th class="text-end" style="width: 100px;"></th>
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+                        {% for et in anneescolaireliste %}  
+                        <tr>
+                            <td>{{et.Anneescolaire}}</td>
+                            <td>{{et.Statutannee}}</td>
+                            <td class="text-end">
+                            <div class="btn-group">
+                                <button class="btn btn-secondary btn-sm" type="button"> 
+                                    Actions
+                                </button>
+                                <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="mdi mdi-chevron-down"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{% url 'anneescolairestatut' et.id %}">Désactiver Année scolaire</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{% url 'anneemodif' et.id %}">Modifier</a>
+                                    <a class="dropdown-item" href="{% url 'delete_annee' et.id %}">Supprimer</a>
+                                </div>
+                            </div>
+                            </td>
+                        </tr>
+                        {% endfor %} 
+                    </tbody>
+                        
+                </table>
+                {% endif %}
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+{% endblock content %}

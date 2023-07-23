@@ -1,0 +1,379 @@
+{% extends 'Pages/base.html' %}
+
+{% block content %}
+ <!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">IBACySCHOOL</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'ecoleliste' %}">Institutions</a></li>
+                    <li class="breadcrumb-item active">Etudiant</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="row">
+    <div class="col-xl-3">
+        <div class="card">
+            <div class="card-body">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#home" role="tab">
+                            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                            <span class="d-none d-sm-block">Etudiant</span>    
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab">
+                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                            <span class="d-none d-sm-block">Photo</span>    
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#messages" role="tab">
+                            <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
+                            <span class="d-none d-sm-block">Parents</span>    
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                    
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content p-3 text-muted">
+                    <div class="tab-pane active" id="home" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-4">{{etudiant.Matricule}}</h4>
+
+                                <p class="text-muted mb-4"> </p>
+                                <div class="table-responsive">
+                                    <table class="table table-nowrap mb-0">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Nom :</th>
+                                                <td>{{etudiant.Nom}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Prénoms :</th>
+                                                <td>{{etudiant.Prenoms}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Mobile :</th>
+                                                <td>{{etudiant.Telephone}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">E-mail :</th>
+                                                <td>{{etudiant.Email}}</td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="tab-pane" id="profile" role="tabpanel">
+                        <div class="col-sm-12">
+                            <div class="card p-1 border shadow-none">
+                                
+                                
+                                <div class="">
+                                    <img src="{{ etudiant.Photo.url }}" class="img-thumbnail" alt="200x200" width="200" data-holder-rendered="true">
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="messages" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-4">{{parent.Qualite}}</h4>
+
+                                <p class="text-muted mb-4"> </p>
+                                <div class="table-responsive">
+                                    <table class="table table-nowrap mb-0">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Nom :</th>
+                                                <td>{{parent.Nom}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Prénoms :</th>
+                                                <td>{{parent.Prenoms}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Mobile :</th>
+                                                <td>{{parent.Telephone}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Téléphone :</th>
+                                                <td>{{parent.Contact}}</td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3">
+        <div class="card">
+            <div class="card-body">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#home1" role="tab">
+                            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                            <span class="d-none d-sm-block">{% for sess in sessi %}<span class="d-none d-sm-block">{{sess.Decoupage}}</span> {% endfor %} </span>    
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#profile1" role="tab">
+                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                            <span class="d-none d-sm-block">{% for sess in sessio %}<span class="d-none d-sm-block">{{sess.Decoupage}}</span> {% endfor %}</span>    
+                        </a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content p-3 text-muted">
+                    <div class="tab-pane active" id="home1" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table table-nowrap table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Matières</th>
+                                        <th scope="col">Cours</th>
+                                        <th scope="col">Moyennes</th>
+                                        <th scope="col">Appréciations</th>
+                                        <th scope="col">Professeur</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for et in grades %} 
+                                    <tr>
+                                        <td>{{et.Typematiere}}</td>
+                                        <td>{{et.Cours}}</td>
+                                        <td>{{et.Note}}</td>
+                                        <td>{{et.Appreciation}}</td>
+                                        <td>{{et.Professeur}}</td>
+                                    </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="3">Aucune donnée disponible.</td>
+                                        </tr>
+                                    {% endfor %} 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="profile1" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table table-nowrap table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Matières</th>
+                                        <th scope="col">Cours</th>
+                                        <th scope="col">Moyennes</th>
+                                        <th scope="col">Appréciations</th>
+                                        <th scope="col">Professeur</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for et in grade %} 
+                                    <tr>
+                                        <td>{{et.Typematiere}}</td>
+                                        <td>{{et.Cours}}</td>
+                                        <td>{{et.Note}}</td>
+                                        <td>{{et.Appreciation}}</td>
+                                        <td>{{et.Professeur}}</td>
+                                    </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="3">Aucune donnée disponible.</td>
+                                        </tr>
+                                    {% endfor %} 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <!-- Nav tabs -->
+                <ul class="nav nav-pills nav-justified" role="tablist">
+                    <li class="nav-item waves-effect waves-light">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#home-1" role="tab">
+                            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                            <span class="d-none d-sm-block">Home</span> 
+                        </a>
+                    </li>
+                    <li class="nav-item waves-effect waves-light">
+                        <a class="nav-link" data-bs-toggle="tab" href="#profile-1" role="tab">
+                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                            <span class="d-none d-sm-block">Profile</span> 
+                        </a>
+                    </li>
+                    <li class="nav-item waves-effect waves-light">
+                        <a class="nav-link" data-bs-toggle="tab" href="#messages-1" role="tab">
+                            <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
+                            <span class="d-none d-sm-block">Messages</span>   
+                        </a>
+                    </li>
+                    <li class="nav-item waves-effect waves-light">
+                        <a class="nav-link" data-bs-toggle="tab" href="#settings-1" role="tab">
+                            <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
+                            <span class="d-none d-sm-block">Events</span>    
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content p-3 text-muted">
+                    <div class="tab-pane active" id="home-1" role="tabpanel">
+                        <p class="mb-0">
+                            Raw denim you probably haven't heard of them jean shorts Austin.
+                            Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache
+                            cliche tempor, williamsburg carles vegan helvetica. Reprehenderit
+                            butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi,
+                            qui irure terry richardson ex squid. Aliquip placeat salvia cillum
+                            iphone. Seitan aliquip quis cardigan american apparel, butcher
+                            voluptate nisi qui.
+                        </p>
+                    </div>
+                    <div class="tab-pane" id="profile-1" role="tabpanel">
+                        <p class="mb-0">
+                            Food truck fixie locavore, accusamus mcsweeney's marfa nulla
+                            single-origin coffee squid. Exercitation +1 labore velit, blog
+                            sartorial PBR leggings next level wes anderson artisan four loko
+                            farm-to-table craft beer twee. Qui photo booth letterpress,
+                            commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
+                            vinyl cillum PBR. Homo nostrud organic, assumenda labore
+                            aesthetic magna 8-bit.
+                        </p>
+                    </div>
+                    <div class="tab-pane" id="messages-1" role="tabpanel">
+                        <p class="mb-0">
+                            Etsy mixtape wayfarers, ethical wes anderson tofu before they
+                            sold out mcsweeney's organic lomo retro fanny pack lo-fi
+                            farm-to-table readymade. Messenger bag gentrify pitchfork
+                            tattooed craft beer, iphone skateboard locavore carles etsy
+                            salvia banksy hoodie helvetica. DIY synth PBR banksy irony.
+                            Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh
+                            mi whatever gluten-free.
+                        </p>
+                    </div>
+                    <div class="tab-pane" id="settings-1" role="tabpanel">
+                        
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-bs-toggle="tab" href="#home12" role="tab">
+                                                <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                                <span class="d-none d-sm-block">{% for sess in sessi %}<span class="d-none d-sm-block">{{sess.Decoupage}}</span> {% endfor %} </span>    
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-bs-toggle="tab" href="#profile12" role="tab">
+                                                <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                                <span class="d-none d-sm-block">{% for sess in sessio %}<span class="d-none d-sm-block">{{sess.Decoupage}}</span> {% endfor %}</span>    
+                                            </a>
+                                        </li>
+                                        
+                                    </ul>
+                    
+                                    <!-- Tab panes -->
+                                    <div class="tab-content p-3 text-muted">
+                                        <div class="tab-pane active" id="home12" role="tabpanel">
+                                            <div class="table-responsive">
+                                                <table class="table table-nowrap table-hover mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Matières</th>
+                                                            <th scope="col">Début</th>
+                                                            <th scope="col">Fin</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for et in abs %} 
+                                                        <tr>
+                                                            <td>{{et.Cours}}</td>
+                                                            <td>{{et.Heuredebut}}</td>
+                                                            <td>{{et.Heurefin}}</td>
+                                                        </tr>
+                                                            {% empty %}
+                                                            <tr>
+                                                                <td colspan="3">Aucune donnée disponible.</td>
+                                                            </tr>
+                                                        {% endfor %} 
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="profile12" role="tabpanel">
+                                            <div class="table-responsive">
+                                                <table class="table table-nowrap table-hover mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Matières</th>
+                                                            <th scope="col">Début</th>
+                                                            <th scope="col">Fin</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for et in abs1 %} 
+                                                        <tr>
+                                                            <td>{{et.Cours}}</td>
+                                                            <td>{{et.Heuredebut}}</td>
+                                                            <td>{{et.Heurefin}}</td>
+                                                        </tr>
+                                                            {% empty %}
+                                                            <tr>
+                                                                <td colspan="3">Aucune donnée disponible.</td>
+                                                            </tr>
+                                                        {% endfor %} 
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div> <!-- end row -->
+{% endblock content %}

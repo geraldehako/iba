@@ -1,0 +1,93 @@
+{% extends 'Pages/base.html' %}
+
+{% block content %}
+{% load static %}
+ <!-- start page title -->
+ <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">IBACySCHOOL</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'ecoleliste' %}">Institutions</a></li>
+                    <li class="breadcrumb-item active">Enseignants</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                      <h6 class="mb-0">Consulter la liste des Enseignants</h6>
+                    </div>
+                    <div class="col-6 text-end">
+                        <a class="btn btn-danger waves-effect waves-light" href="{% url 'enseignantbase' %}"><iconify-icon icon="mdi:content-save-plus"></iconify-icon>  Enseignant</a>
+                    </div>
+                  </div><br><br>
+                {% if enseignantliste %} 
+                <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead class="table-light">
+                    <tr>
+                        <th scope="col" style="width: 70px;">#</th> 
+                        <th>Institution</th>
+                        <th>Matricule</th>
+                        <th>Nom</th>
+                        <th>Prenoms</th>
+                        <th>Genre</th>
+                        <th>Contact</th>
+                        <th>Téléphone</th>
+                        <th class="text-end" style="width: 100px;"></th>
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+                        {% for et in enseignantliste %} 
+                        <tr>
+                            <td>
+                                {% if et.Photo %}
+                                    <img class="rounded-circle avatar-xs" src="{{ et.Photo.url }}" alt="{{ Et.Nom }}">
+                                {% else %}
+                                    <img class="rounded-circle avatar-xs" src="{% static 'assets/images/avatar.jpg' %}" alt="{{ et.Nom }}">
+                                {% endif %}
+                            </td>
+                            <td>{{et.Ecole}}</td>
+                            <td>{{et.Matricule}}</td>
+                            <td>{{et.Nom}}</td>
+                            <td>{{et.Prenoms}}</td>
+                            <td>{{et.Sexe}}</td>
+                            <td>{{et.Contact}}</td>
+                            <td>{{et.Telephone}}</td>
+                            <td class="text-end">
+                                <div class="btn-group">
+                                    <button class="btn btn-secondary btn-sm" type="button">
+                                        Actions
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <iconify-icon icon="bx:chevron-down-square"></iconify-icon>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{% url 'enseignantmodif' et.id %}">Modifier</a>
+                                        <a class="dropdown-item" href="{% url 'delete_objectensignant' et.id %}">Supprimer</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %} 
+                    </tbody>
+                        
+                </table>
+                {% endif %}
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+{% endblock content %}

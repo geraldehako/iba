@@ -1,0 +1,85 @@
+{% extends 'Pages/base.html' %}
+
+{% block content %}
+{% load static %}
+ <!-- start page title -->
+ <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">IBACySCHOOL</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'ecoleliste' %}">Institutions</a></li>
+                    <li class="breadcrumb-item active">Enseignants</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                      <h6 class="mb-0">Consulter la liste des Enseignants</h6>
+                    </div>
+                    <div class="col-6 text-end">
+                      <a class="btn btn-primary waves-effect btn-label waves-light" href="{% url 'enseignantliste' %}"><i class="fas fa-plus"></i>&nbsp;&nbsp;Nouvel Enseignant</a>
+                    </div>
+                  </div><br><br>
+                {% if enseignantliste %} 
+                <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead class="table-light">
+                    <tr>
+                        <th scope="col" style="width: 70px;">#</th> 
+                        <th>Nom</th>
+                        <th>Prenoms</th>
+                        <th>Login</th>
+                        <th>Date Activation</th>
+                        <th>Derniere Connexion</th>
+                        <th>Statut</th>
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+                        {% for et in enseignantliste %} 
+                        <tr>
+                            <td>
+                                {% if et.Photo %}
+                                    <img class="rounded-circle avatar-xs" src="{{ et.Photo.url }}" alt="{{ Et.Nom }}">
+                                {% else %}
+                                    <img class="rounded-circle avatar-xs" src="{% static 'assets/images/avatar.jpg' %}" alt="{{ et.Nom }}">
+                                {% endif %}
+                            </td>
+                            <td>{{et.first_name}}</td>
+                            <td>{{et.last_name}}</td>
+                            <td>{{et.username}}</td>
+                            <td>{{et.date_joined}}</td>
+                            <td>{{et.last_login}}</td>
+                            <td class="text-end" style="width: 70px;">
+                                {% if et.statut == 'NON ACTIVE' %} 
+                                    <span class="badge badge-pill badge-soft-danger font-size-11">{{ et.statut }}</span>
+                                {% elif et.statut == 'ACTIVE' %}
+                                    <span class="badge badge-pill badge-soft-success font-size-11">{{ et.statut }}</span>
+                                {% else %}
+                                    {{ et.statut }}
+                                {% endif %}
+                            </td>
+                            
+                        </tr>
+                        {% endfor %} 
+                    </tbody>
+                        
+                </table>
+                {% endif %}
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+{% endblock content %}

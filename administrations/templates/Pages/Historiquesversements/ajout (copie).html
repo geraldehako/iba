@@ -1,0 +1,116 @@
+{% extends 'Pages/base.html' %}
+
+{% block content %}
+ <!-- start page title -->
+ <div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">EDU_CMA</h4>
+  
+            <div class="page-title-right"> 
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'typematliste' %}">Type matières</a></li>
+                    <li class="breadcrumb-item active">Liste</li>
+                </ol>
+            </div>
+  
+        </div>
+    </div>
+  </div>
+  <!-- end page title -->
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Formulaire de Versement</h4>
+ 
+                    
+                        <form method="post" action="{% url 'sauvegarder_historique_vers' %}" >
+                            {% csrf_token %}
+                            <input type="hidden" name="niveau_id" value="{{ niveau.id }}"> 
+                            <input type="hidden" name="etudiant_id" value="{{ etudiant.id }}">
+                            
+                            <!-- Afficher les informations de l'étudiant -->
+                            <p>Etudiant: {{ etudiant.Nom }}</p>
+                            <p>Ecole: {{ etudiant.Ecole }}</p>
+                            <p>Sexe: {{ etudiant.Sexe }}</p>
+                             
+                            <!-- Afficher les catalogues -->
+                            <p>Catalogues:</p>
+                            <ul>
+                              {% for catalogue in catalogues %}
+                                <li>{{ catalogue.Nom }} - Prix: {{ catalogue.Prix }}</li>
+                              {% endfor %}
+                            </ul>
+                            
+                            <!-- Champ Montantvers -->
+                            <div class="form-group">
+                              <label for="id_montantvers">Montantvers:</label>
+                              <input type="number" name="montantvers" id="id_montantvers" step="0.01" required>
+                            </div>
+                            
+
+                            <!-- Liste des règlements à effectuer -->
+    <div class="col-6">
+
+      <div class="card bd-0">
+
+          <div class="card card-header tx-bold">LIBELLE DE PAIEMEENT</div>
+          <div class="card card-body">
+
+              <h3 class="tx-bold" id="info-montant-reglement">MONTANT: 0 XOF</h3>
+              <input type="hidden" name="montant-reglement" id="montant-reglement">
+
+              <table class="table table-bordered table-striped">
+                  <thead>
+                      <tr>
+                          <th class="wd-25p"><span class="">Libellé de règlement</span></th>
+                          <th class="wd-10p"><span class="">Montant à payer</span></th>
+                          <th class="wd-15p"><span class="">Reste à payer</span></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                                                                      
+                      <tr>
+                          <td class="">
+                              <label class="ckbox">
+                                  <input type="checkbox" id="id-reglement-0" name="id-reglement-0" value="1" onclick="CheckButtonPayment()" 3000>
+                                  <span class="tx-bold" style="font-size:20px;height:60px">FRAIS D'INSCRIPTION</span>
+                              </label>
+                          </td>
+                          <td class=""><input type="text" style="font-size:15px;height:60px" class="form-control tx-bold" disabled="" value="3,000 XOF"></td>
+                          <td class=""><input type="text" style="font-size:20px;height:60px" class="form-control tx-bold" disabled="" value=""></td>
+                          <td class=""><input type="number" style="font-size:30px;height:60px" class="form-control tx-bold" name="montant-reglement-0" id="montant-reglement-0" placeholder="3,000" onchange="javascript:document.getElementById('id-reglement-0').checked = true;CheckButtonPayment();CalculMontantReglement();"></td>
+                      </tr>
+                                                                      <input type="hidden" id="remise-statut-1" value="1"/>
+                      
+                                              <input type="hidden" name="total" id="total" value="4"/>
+                                  
+                      <tr>
+                          <td colspan="3" align="right" class="">TOTAL RESTE A PAYER</td>
+                          <td class=""><span class="form-control- tx-bold tx-dark">213,000 XOF</span></td>
+                      </tr>
+                  </tbody>
+              </table>
+
+
+          </div><!-- card-body -->
+
+      </div><!-- card -->
+
+
+                            <!-- Bouton Soumettre -->
+                            
+                            <div class="mt-4 hstack gap-2" >
+                              <button type="submit" class="btn btn-soft-success w-100">Valider</button>
+                              <a class="btn btn-soft-primary w-100" href="{% url 'ecoleliste' %}">Retour en Arrière</a>
+                            </div>
+                          </form>
+                          
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

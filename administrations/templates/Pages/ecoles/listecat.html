@@ -1,0 +1,88 @@
+{% extends 'Pages/basecaisse.html' %}
+
+{% block content %}
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">IBACySCHOOL</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'ecolelistecat' %}">Institutions</a></li>
+                    <li class="breadcrumb-item active">Liste</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+                <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                      <h6 class="mb-0">Consulter la liste des institutions de formation</h6>
+                    </div>
+                    <div class="col-6 text-end">
+                      
+                    </div>
+                </div></br>
+            {% if ecoleliste %} 
+            <div class="row">
+                {% for ecole in ecoleliste %} 
+
+
+
+                
+
+
+
+
+
+
+
+                
+ 
+                <div class="col-xl-3 col-md-6"> 
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="favorite-icon">
+                                <a href="javascript:void(0)"><i class="uil uil-heart-alt fs-18"></i></a>
+                            </div>
+                            <img src="{{ ecole.image.url }}" alt="" height="50" class="mb-3">
+                            <h5 class="fs-17 mb-2"><a href="job-details.html" class="text-dark">{{ecole.Etablissement}}</a> <small class="text-muted fw-normal">({{ecole.Ville}})</small></h5>
+                            <ul class="list-inline mb-0">
+                                <li class="list-inline-item">
+                                    <p class="text-muted fs-14 mb-1">{{ecole.Natureecole}}</p>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p class="text-muted fs-14 mb-0"><i class="mdi mdi-map-marker"></i> {{ecole.Adresse}}</p>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p class="text-muted fs-14 mb-0"><i class="uil uil-wallet"></i> {{ecole.Telephone}} / {{ecole.Contact}}</p>
+                                </li>
+                            </ul>
+                            <div class="mt-3 hstack gap-2">
+                                <span class="badge rounded-1 badge-soft-success"><a class="dropdown-item" href="#">Rapport pédagogique</a></span>
+                                <span class="badge rounded-1 badge-soft-warning"><a class="dropdown-item" href="{% url 'nivlistecat' %}">Catalogue de prix</a></span>
+                                <span class="badge rounded-1 badge-soft-info"><a class="dropdown-item" href="#">Salles pédagogique</a></span>
+                            </div>
+                            <div class="mt-4 hstack gap-2">
+                                <a href="{% url 'ecoleclasse' ecole.id %}" class="btn btn-soft-success w-100" disabled style="pointer-events: none; opacity: 0.6;">Effectif auditeurs</a>
+                                <a href="{% url 'ecoleupdate' ecole.id %}" class="btn btn-soft-primary w-100"disabled style="pointer-events: none; opacity: 0.6;">Modifier</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                
+                
+                <!-- end col -->
+                {% endfor %}
+            </div>
+                
+               
+            {% endif %}
+        
+{% endblock content %}

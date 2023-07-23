@@ -1,0 +1,207 @@
+{% extends 'Pages/base.html' %}
+
+{% block content %}
+
+
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">IBACySCHOOL</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{% url 'ecoleliste' %}">Classes</a></li>
+                    <li class="breadcrumb-item active">Modification</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Formulaire de Réinscription</h4>
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xl-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4">Personal Information</h4>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-6">
+                                                    <label for="formrow-password-input" class="form-label">Niveau</label>
+                                                    {{ form.Niveau}}
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-6">
+                                                    <label for="formrow-password-input" class="form-label">Classe</label>
+                                                    {{ form.Salle}}
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3" hidden>
+                                            <div class="mb-3">
+                                                <label for="formrow-password-input" class="form-label">Ecole</label>
+                                                
+                                                  {{ form.Ecole }}
+                                              
+                                            </div>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-8">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4">Personal Information</h4>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="mb-3">
+                                                    <label for="formrow-email-input" class="form-label">Matricule</label>
+                                                    {{ form.Matricule }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="mb-3">
+                                                    <label for="formrow-email-input" class="form-label">Nom</label>
+                                                    {{ form.Nom }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label for="formrow-password-input" class="form-label">Prénoms</label>
+                                                    {{ form.Prenoms }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="mb-3">
+                                                    <label for="formrow-password-input" class="form-label">Genre</label>
+                                                    {{ form.Sexe }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="mb-3">
+                                                    <label for="formrow-password-input" class="form-label">Genre</label>
+                                                    
+                                                    {{ form.Matrimoniale }}
+                                                  
+                                                </div>
+                                              </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="mb-3">
+                                                    <label for="formrow-email-input" class="form-label">Date Naissance</label>
+                                                    {{ form.Datenaissance }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <label for="formrow-email-input" class="form-label">Lieu Naissance</label>
+                                                    {{ form.Lieunaissance }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label for="formrow-email-input" class="form-label">Email</label>
+                                                    {{ form.Email }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <label for="resume" class="form-label">Photo</label>
+                                                    {{ form.Photo }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <label for="formrow-email-input" class="form-label">Téléphone</label>
+                                                    {{ form.Telephone }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="mb-3">
+                                                    <label for="formrow-password-input" class="form-label">Contact</label>
+                                                    {{ form.Contact }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 hstack gap-2">
+                        <button type="submit" class="btn btn-soft-success w-100">Valider</button>
+                        <a class="btn btn-soft-primary w-100" href="{% url 'ecoleliste' %}">Retour</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  // Fonction pour mettre à jour la liste des salles lorsque le champ Niveau est modifié
+  $('.niveau-select').change(function() {
+    var niveauId = $(this).val(); // Récupérer l'ID du niveau sélectionné
+
+    // Effectuer une requête AJAX pour récupérer les salles correspondantes au niveau sélectionné
+    $.ajax({
+      url: '/academique/reinscription/' + niveauId + '/auditeur',  // Chemin vers votre vue qui retourne les salles
+      type: 'GET',
+      success: function(data) {
+        // Mettre à jour la liste des salles avec les résultats de la requête
+        var salleSelect = $('.salle-select');
+        salleSelect.empty();  // Vider la liste actuelle des salles
+
+        // Ajouter les salles correspondantes au niveau sélectionné à la liste
+        $.each(data, function(key, value) {
+          var option = $('<option></option>').attr('value', value.id).text(value.Salle);
+          salleSelect.append(option);
+        });
+      },
+      error: function(xhr, status, error) {
+        console.log(error);  // Gérer les erreurs de requête AJAX
+      }
+    });
+  });
+});
+</script>
+<script>
+    $(document).ready(function() {
+      // Ajouter la classe CSS 'niveau-select' au champ de sélection de niveau
+      $('select[name="Niveau"]').addClass('niveau-select');
+    
+      // Ajouter la classe CSS 'salle-select' au champ de sélection de salle
+      $('select[name="Salle"]').addClass('salle-select');
+    });
+</script>
+    
+
+
+  
+{% endblock content %}

@@ -1,0 +1,57 @@
+{% extends 'Pages/base.html' %}
+
+{% block content %}
+<div class="row">
+  <div class="col-12">
+      <div class="card">
+          <div class="card-body">
+
+              <div class="row">
+                  <div class="col-6 d-flex align-items-center">
+                    <h6 class="mb-0">Liste des Moyennes de l'auditeur : {{ student.Nom}}</h6>
+                  </div>
+                  <div class="col-6 text-end">
+                    <a class="btn bg-gradient-dark mb-0" href=""><i class="fas fa-plus"></i>&nbsp;&nbsp;</a>
+                  </div>
+                </div><br><br>
+              
+  {% if grades %} 
+  <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+    <thead>
+      <tr>
+        <th>Matieres</th>
+        <th>Moyenne</th>
+        <th>Appréciations</th>
+        <th class="text-end" style="width: 100px;"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for grade in grades %}
+        <tr>
+          <td>{{ grade.Cours }}</td>
+          <td>{{ grade.Note }}</td>
+          <td>{{grade.Appreciation}}</td>
+                            <td class="text-end">
+                                <div class="btn-group">
+                                    <button class="btn btn-secondary btn-sm" type="button">
+                                        Actions
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="mdi mdi-chevron-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{% url 'moyupdate' grade.id %}">Modifier</a>
+                                        <a class="dropdown-item" href="#">Supprimer</a>
+                                    </div>
+                                </div>
+                            </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+</div>
+</div>
+</div> <!-- end col -->
+</div> <!-- end row -->
+{% endblock content %}

@@ -1,0 +1,139 @@
+{% extends 'Pages/baserh.html' %}
+
+{% block content %}
+ <!-- start page title -->
+ <div class="row">
+  <div class="col-12">
+      <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+          <h4 class="mb-sm-0 font-size-18">IBACySCHOOL</h4>
+
+          <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item"><a href="{% url 'listepersonnelrh' %}">Personnels</a></li>
+                  <li class="breadcrumb-item active">Liste</li>
+              </ol>
+          </div>
+
+      </div>
+  </div>
+</div>
+<!-- end page title -->
+<div class="row">
+  <div class="col-xl-12"> 
+      <div class="card">
+          <div class="card-body">
+              <h4 class="card-title mb-4">Formulaire de validation</h4>
+
+              <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                <div class="row">   
+                  <div class="col-md-2">
+                     <div class="mb-3">
+                         <label for="formrow-password-input" class="form-label">Matricule</label>
+                             {{ form.Matricule }}
+                     </div>
+                  </div>             
+                  <div class="col-md-3">
+                      <div class="mb-3">
+                          <label for="formrow-email-input" class="form-label">Nom</label>
+                          {{ form.Nom }}
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="mb-3">
+                          <label for="formrow-password-input" class="form-label">Prénoms</label>
+                          {{ form.Prenoms }}
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="formrow-password-input" class="form-label">Genre</label>
+                        
+                        {{ form.Sexe }}
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="row">                
+                  <div class="col-md-2">
+                      <div class="mb-3">
+                          <label for="formrow-email-input" class="form-label">Date Naissance</label>
+                          {{ form.Datenaissance }}
+                      </div>
+                  </div>
+                  
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="formrow-email-input" class="form-label">Lieu Naissance</label>
+                        {{ form.Lieunaissance }}
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="formrow-email-input" class="form-label">Email</label>
+                        {{ form.Email }}
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="mb-3">
+                          <label for="resume" class="form-label">Photo</label>
+                          {{ form.Photo }}
+                      </div>
+                  </div>
+                </div>
+                <div class="row">                
+                  <div class="col-md-3">
+                      <div class="mb-3">
+                          <label for="formrow-email-input" class="form-label">Téléphone</label>
+                          {{ form.Telephone }}
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="mb-3">
+                          <label for="formrow-password-input" class="form-label">Contact</label>
+                          {{ form.Contact }}
+                      </div>
+                  </div> 
+                  
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="formrow-password-input" class="form-label">Service</label>
+                        
+                          {{ form.Service }}
+                      
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="formrow-password-input" class="form-label">Poste</label>
+                        
+                          {{ form.Poste }}
+                      
+                    </div>
+                  </div>
+                </div> 
+                <div class="col-md-2" hidden>
+                  <div class="mb-3">
+                      <label for="formrow-password-input" class="form-label">Poste</label>
+                      
+                        {{ form.Statut }}
+                    
+                  </div>
+                </div>
+                      
+              </div>    
+                      
+                    
+              <div class="mt-4 hstack gap-2" >
+                <button type="submit" class="btn btn-soft-success w-100">Valider</button>
+                <a class="btn btn-soft-primary w-100" href="{% url 'enseignantliste' %}">Retour en Arrière</a>
+              </div>
+              </form>
+          </div>
+        <!-- end card body -->
+    </div>
+    <!-- end card -->
+</div></div>
+<!-- end col -->
+{% endblock content %}

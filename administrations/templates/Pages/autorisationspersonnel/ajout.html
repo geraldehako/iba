@@ -1,0 +1,144 @@
+{% extends 'Pages/baserh.html' %}
+
+{% block content %}
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0 font-size-18">EDU_CMA</h4>
+                <div class="page-title-right"> 
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{% url 'absliste' %}">Historique</a></li>
+                        <li class="breadcrumb-item active">Autorisations</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Formulaire de validation</h4>
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <div class="row">                
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="formrow-password-input" class="form-label">Contact</label>
+                                        {{ form.Contact }}
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="formrow-password-input" class="form-label">Période en jours</label>
+                                        {{ form.Periode }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-email-input" class="form-label">Date départ</label>
+                                        {{ form.Datedebut }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-email-input" class="form-label">Heure début</label>
+                                        {{ form.Heuredebut }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-email-input" class="form-label">Date retour</label>
+                                        {{ form.Datefin }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-email-input" class="form-label">Heure fin</label>
+                                        {{ form.Heurefin }}
+                                    </div>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="mb-3">
+                                        <label for="formrow-password-input" class="form-label">Motif</label>
+                                        {{ form.Motif }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-email-input" class="form-label">Date reprise</label>
+                                        {{ form.Datereprise }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-email-input" class="form-label">Heure reprise</label>
+                                        {{ form.Heurereprise }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="formrow-email-input" class="form-label">Remplaçant</label>
+                                        {{ form.Remplacant }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-email-input" class="form-label">Contact remplacant</label>
+                                        {{ form.Contactremplacant }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-password-input" class="form-label">Avis</label>
+                                        {{ form.Aviss }}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row" hidden>
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-email-input" class="form-label">Personnel</label>
+                                        {{ form.Personnel }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2"> 
+                                    <div class="mb-3">
+                                        <label for="formrow-email-input" class="form-label">Service</label>
+                                        {{ form.Service }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="formrow-email-input" class="form-label">Poste</label>
+                                        {{ form.Poste }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 hstack gap-2">
+                            <button type="submit" class="btn btn-soft-success w-100">Valider</button>
+                            <a class="btn btn-soft-primary w-100" href="{% url 'ecoleliste' %}">Retour en Arrière</a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

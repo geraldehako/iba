@@ -1,0 +1,31 @@
+{% extends 'Pages/base.html' %}
+
+{% block content %}
+<div class="row">
+  <div class="col-xl-12">
+      <div class="card">
+          <div class="card-body">
+              <h4 class="card-title mb-4">Saisir des moyennes <legend>{{ id }}</legend></h4>
+  
+              <form method="POST">
+                {% csrf_token %}
+              
+                {% for course in courses %}
+                <label for="course">Course:</label>
+                <select name="course" required>
+                  <option value="{{ course.id }}">{{ course.Matiere }}</option>
+                </select><br><br>
+                <label for="score">Score:</label>
+                <input type="number" name="score" step="0.01" required><br><br>
+                {% endfor %}
+              
+                <button type="submit">Add Grade</button>
+              </form>
+              
+              
+
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
